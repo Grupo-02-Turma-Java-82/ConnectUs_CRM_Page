@@ -2,12 +2,8 @@ import React from "react";
 
 export function NavbarDashboard() {
   return (
-    <div>
-      <nav>
-        <h1 className="text-primary font-bold text-4xl">ConnectUs</h1>
-      </nav>
-
-      <div className="flex flex-col w-full h-full bg-sidebar"></div>
-    </div>
+    <nav className="flex flex-col bg-sidebar border-r-2 border-primary">
+      <h1 className="text-xl font-bold text-primary">ConnectUs</h1>
+    </nav>
   );
 }

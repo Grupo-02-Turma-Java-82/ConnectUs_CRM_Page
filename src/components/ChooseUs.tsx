@@ -1,9 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export function ChooseUs() {
-  return (
-    <div>
-      ChooseUs
-    </div>
-  )
+  return <div className="bg-primary/5">ChooseUs</div>;
 }

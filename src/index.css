@@ -4,7 +4,7 @@
 :root {
   --radius: 0.625rem;
 
-  --background: oklch(0.21 0.1 283.45); /* Dark Purple */
+  --background: #170e24; /* Dark Purple */
   --foreground: oklch(0.97 0.01 278.57); /* Seasalt */
   --card: oklch(0.18 0.09 288.64); /* Dark Purple 2 */
   --card-foreground: oklch(0.97 0.01 278.57);
