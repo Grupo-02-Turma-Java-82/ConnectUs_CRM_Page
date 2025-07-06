@@ -8,7 +8,7 @@
 
   --background: #170e24; /* Dark Purple */
   --foreground: oklch(0.97 0.01 278.57); /* Seasalt */
-  --card: oklch(0.18 0.09 288.64); /* Dark Purple 2 */
+  --card: #100a20; /* Dark Purple 2 */
   --card-foreground: oklch(0.97 0.01 278.57);
   --popover: oklch(0.18 0.09 288.64);
   --popover-foreground: oklch(0.97 0.01 278.57);
