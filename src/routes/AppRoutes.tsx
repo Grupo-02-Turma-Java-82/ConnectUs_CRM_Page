@@ -2,6 +2,7 @@ import { AppLayout } from "@/components/AppLayout";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { NotFound } from "@/components/NotFound";
 import { Dashboard } from "@/pages/Dashboard";
+import { Customers } from "@/pages/Customers";
 import { Home } from "@/pages/Home";
 import { Route, Routes } from "react-router";
 
@@ -14,6 +15,7 @@ export function AppRoutes() {
 
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<Dashboard />} />
+        <Route path="customers" element={<Customers />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

@@ -8,8 +8,11 @@ export function DashboardLayout() {
     <main className="w-full md:w-auto">
       <SidebarProvider>
         <AppSidebar />
-        <Searchbar />
-        <Outlet />
+
+        <main className="w-screen h-full">
+          <Searchbar />
+          <Outlet />
+        </main>
       </SidebarProvider>
     </main>
   );

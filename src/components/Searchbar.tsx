@@ -26,10 +26,10 @@ export default function Searchbar() {
 
   return (
     <div className="h-16 w-full border-b border-border bg-card px-3 md:px-6 flex items-center justify-between">
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 flex-1">
         <SidebarTrigger className="text-foreground cursor-pointer" />
         <Form {...searchForm}>
-          <form onSubmit={searchForm.handleSubmit(onSubmit)}>
+          <form onSubmit={searchForm.handleSubmit(onSubmit)} className="w-full">
             <ControlledInput
               control={searchForm.control}
               name="search"
