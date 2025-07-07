@@ -8,12 +8,10 @@ import { Navbar } from "@/components/Navbar";
 export function Home() {
   return (
     <div>
-      <Navbar />
       <Hero />
       <Features />
       <ChooseUs />
       <GoDashboard />
-      <Footer />
     </div>
   );
 }
