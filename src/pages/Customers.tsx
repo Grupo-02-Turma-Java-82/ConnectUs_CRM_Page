@@ -3,7 +3,7 @@ import { useCustomers } from "@/hooks/useCustomers";
 import { SpinnerIcon } from "@phosphor-icons/react";
 
 export function Customers() {
-  const { customers, isLoading } = useCustomers();
+  const { customers, isLoading, deleteCustomer } = useCustomers();
 
   return (
     <div className="p-5">
@@ -13,7 +13,10 @@ export function Customers() {
           <SpinnerIcon className="text-white animate-spin" size={54} />
         </div>
       ) : (
-        <CustomersDataTable customers={customers} />
+        <CustomersDataTable
+          customers={customers}
+          deleteCustomer={deleteCustomer}
+        />
       )}
     </div>
   );

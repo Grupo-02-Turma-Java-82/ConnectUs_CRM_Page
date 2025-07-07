@@ -1,45 +1,22 @@
-import { BellIcon, UserIcon } from "lucide-react";
+import { BellIcon, SearchIcon, UserIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { SidebarTrigger } from "./ui/sidebar";
 
-import { ControlledInput } from "./ControlledInput";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { Form } from "./ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-const searchSchema = z.object({
-  search: z.string().min(1, "Parâmetro de pesquisa é obrigatório"),
-});
+import { Input } from "./ui/input";
 
 export default function Searchbar() {
-  const searchForm = useForm<z.infer<typeof searchSchema>>({
-    resolver: zodResolver(searchSchema),
-    defaultValues: {
-      search: "",
-    },
-  });
-
-  function onSubmit(data: z.infer<typeof searchSchema>) {
-    console.log("Busca realizada: ", data.search);
-  }
-
   return (
     <div className="h-16 w-full border-b border-border bg-card px-3 md:px-6 flex items-center justify-between">
       <div className="flex items-center gap-4 flex-1">
         <SidebarTrigger className="text-foreground cursor-pointer" />
-        <Form {...searchForm}>
-          <form onSubmit={searchForm.handleSubmit(onSubmit)} className="w-full">
-            <ControlledInput
-              control={searchForm.control}
-              name="search"
-              placeholder="Buscar clientes, oportunidades..."
-              icon="search"
-            />
-          </form>
-        </Form>
+        <div className="relative flex-1 max-w-sm">
+          <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            placeholder="Buscar clientes, oportunidades, funcionarios..."
+            className="pl-10 bg-background border-border"
+          />
+        </div>
       </div>
-      <div className="relative"></div>
 
       <div className="flex items-center md:gap-3">
         <Button variant="ghost" size="icon" className="text-foreground">
