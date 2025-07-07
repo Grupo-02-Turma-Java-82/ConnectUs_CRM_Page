@@ -35,11 +35,20 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { EmptyTable } from "../EmptyTable";
 import { Edit, SearchIcon, Trash2 } from "lucide-react";
+import { FormCustomers } from "../FormCustomers";
 
 interface DataTableProps<TData extends { id: number; nome: string }, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -53,6 +62,8 @@ export function DataTable<TData extends { id: number; nome: string }, TValue>({
   handleDelete,
 }: DataTableProps<TData, TValue>) {
   const [globalFilter, setGlobalFilter] = useState("");
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [selectedCustomer, setSelectedCustomer] = useState<TData | null>(null);
 
   const table = useReactTable({
     data,
@@ -141,7 +152,14 @@ export function DataTable<TData extends { id: number; nome: string }, TValue>({
                   >
                     <DropdownMenuLabel>Ações</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className="flex items-center cursor-pointer">
+
+                    <DropdownMenuItem
+                      className="flex items-center cursor-pointer"
+                      onClick={() => {
+                        setSelectedCustomer(row.original);
+                        setEditDialogOpen(true);
+                      }}
+                    >
                       <Edit size={16} className="mr-2" />
                       <span>Editar</span>
                     </DropdownMenuItem>
@@ -203,6 +221,7 @@ export function DataTable<TData extends { id: number; nome: string }, TValue>({
           </TableBody>
         </Table>
       </div>
+
       <div className="flex justify-end gap-4 mt-4">
         <Button
           size="sm"
@@ -223,6 +242,24 @@ export function DataTable<TData extends { id: number; nome: string }, TValue>({
           Próximo
         </Button>
       </div>
+
+      <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+        <DialogContent className="sm:max-w-[625px]">
+          <DialogHeader>
+            <DialogTitle>Editar Cliente</DialogTitle>
+            <DialogDescription>
+              Faça alterações nos dados do cliente aqui. Clique em salvar quando
+              terminar.
+            </DialogDescription>
+          </DialogHeader>
+
+          <FormCustomers
+            isEditMode={true}
+            initialData={selectedCustomer}
+            onClose={() => setEditDialogOpen(false)}
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
