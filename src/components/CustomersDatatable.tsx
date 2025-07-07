@@ -90,8 +90,18 @@ export const columns: ColumnDef<Customer>[] = [
 
 interface Props {
   customers: Customer[];
+  deleteCustomer?: (id: number) => void;
 }
 
-export default function CustomersDataTable({ customers }: Props) {
-  return <DataTable columns={columns} data={customers} />;
+export default function CustomersDataTable({
+  customers,
+  deleteCustomer,
+}: Props) {
+  return (
+    <DataTable<Customer, unknown>
+      columns={columns}
+      data={customers}
+      handleDelete={deleteCustomer}
+    />
+  );
 }

@@ -8,6 +8,7 @@ import {
 import type { Customer } from "@/models/Customers";
 import { api } from "@/services/api";
 import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 type CustomersContextData = {
   isLoading: boolean;
@@ -15,6 +16,7 @@ type CustomersContextData = {
   page: number;
   totalOfPage: number;
   setPage: (page: number) => void;
+  deleteCustomer: (id: number) => Promise<void>;
 };
 
 export const CustomersContext = createContext({} as CustomersContextData);
@@ -34,17 +36,38 @@ export function CustomersProvider({ children }: { children: ReactNode }) {
 
       setCustomers(response.data.content ?? []);
       setTotalOfPage(response.data.totalPages ?? 0);
+
+      toast.dark("Clientes carregados com sucesso");
     } catch (e) {
       console.error(e);
       if (e instanceof AxiosError) {
         console.error("API Error:", e.response?.data.message);
+        toast.error(
+          e.response?.data.message || "Não foi possível carregar os clientes."
+        );
         return;
       }
-      console.error("Não foi possível carregar os clientes.");
     } finally {
       setIsLoading(false);
     }
   }, [page]);
+
+  async function deleteCustomer(id: number) {
+    try {
+      setIsLoading(true);
+
+      await api.delete(`/clientes/${id}`);
+      fetchCustomers();
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        toast.error(
+          e.response?.data?.message || "Não foi possível excluir o cliente."
+        );
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
     fetchCustomers();
@@ -58,6 +81,7 @@ export function CustomersProvider({ children }: { children: ReactNode }) {
         page,
         totalOfPage,
         setPage,
+        deleteCustomer,
       }}
     >
       {children}
