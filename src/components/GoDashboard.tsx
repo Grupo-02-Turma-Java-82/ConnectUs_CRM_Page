@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 export function GoDashboard() {
   return (
     <section className="py-20 px-6 bg-primary/5">
@@ -9,7 +11,9 @@ export function GoDashboard() {
           Junte-se a milhares de empresas que já transformaram seus resultados com nossa plataforma CRM.
         </p>
         <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary-foreground h-11 rounded-md bg-primary hover:bg-primary/90 text-lg px-12 py-6">
-          Acessar Dashboard Agora
+          <Link to='/dashboard'>
+            Acessar Dashboard Agora
+          </Link>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
