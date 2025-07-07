@@ -1,5 +1,10 @@
+import { CustomersProvider } from "./contexts/CustomersContext";
 import { Routes } from "./routes";
 
 export function App() {
-  return <Routes />;
+  return (
+    <CustomersProvider>
+      <Routes />
+    </CustomersProvider>
+  );
 }
