@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router";
 
 export function Navbar() {
   return (
@@ -6,15 +6,19 @@ export function Navbar() {
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">CRM</span>
+            <span className="text-primary-foreground font-bold text-sm">
+              <img
+                src="https://ik.imagekit.io/brunogodoy/logoConnectUS_zMK4zUiI2?updatedAt=1751742289467"
+                className="h-6 w-6"
+              />
+            </span>
           </div>
-          <span className="text-xl font-bold text-foreground">CRM Pro</span>
+          <span className="text-xl font-bold text-foreground">ConnectUS</span>
         </div>
 
         <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary-foreground h-10 px-4 py-2 bg-primary hover:bg-primary/90">
-          <Link to='/dashboard'>
-            Acessar Dashboard
-          </Link>
+          <Link to="/dashboard">Acessar Dashboard</Link>
+
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -35,4 +39,3 @@ export function Navbar() {
     </header>
   );
 }
-
