@@ -18,7 +18,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 
 const items = [
   {
@@ -28,7 +28,7 @@ const items = [
   },
   {
     title: "Clientes",
-    url: "customers",
+    url: "/customers",
     icon: UsersIcon,
   },
   {
@@ -49,6 +49,18 @@ const items = [
 ];
 
 export function AppSidebar() {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  const isActive = (path: string) => {
+    return new RegExp(`^${path}(/|$)`).test(currentPath);
+  };
+
+  const getNavCls = (path: string) =>
+    isActive(path)
+      ? "bg-primary text-primary-foreground font-medium"
+      : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground";
+
   return (
     <Sidebar className="bg-background">
       <SidebarHeader>
@@ -64,12 +76,7 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <NavLink
-                      to={item.url}
-                      className={({ isActive }) =>
-                        isActive ? "bg-accent" : "hover:bg-accent/50"
-                      }
-                    >
+                    <NavLink to={item.url} className={getNavCls(item.url)}>
                       <item.icon />
                       <span className="text-sm">{item.title}</span>
                     </NavLink>

@@ -18,6 +18,10 @@ export function AppRoutes() {
         <Route path="customers" element={<Customers />} />
       </Route>
 
+      <Route path="/customers" element={<DashboardLayout />}>
+        <Route index element={<Customers />} />
+      </Route>
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
