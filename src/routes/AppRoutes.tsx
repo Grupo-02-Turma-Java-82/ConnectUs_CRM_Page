@@ -15,7 +15,6 @@ export function AppRoutes() {
 
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<Dashboard />} />
-        <Route path="customers" element={<Customers />} />
       </Route>
 
       <Route path="/customers" element={<DashboardLayout />}>
