@@ -5,7 +5,7 @@ export function Navbar() {
     <header className="border-b border-border bg-card/50 backdrop-blur">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center">
             <span className="text-primary-foreground font-bold text-sm">
               <img
                 src="https://ik.imagekit.io/brunogodoy/logoConnectUS_zMK4zUiI2?updatedAt=1751742289467"
