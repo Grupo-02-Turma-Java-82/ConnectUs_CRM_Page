@@ -32,6 +32,10 @@ export function AppRoutes() {
         <Route index element={<Oportunities />} />
       </Route>
 
+      <Route path="/customers" element={<DashboardLayout />}>
+        <Route index element={<Customers />} />
+      </Route>
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

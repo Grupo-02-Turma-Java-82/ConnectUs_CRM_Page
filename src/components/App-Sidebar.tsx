@@ -59,7 +59,7 @@ export function AppSidebar() {
   const getNavCls = (path: string) =>
     isActive(path)
       ? "bg-primary text-primary-foreground font-medium"
-      : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground";
+      : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors";
 
   return (
     <Sidebar className="bg-background">
