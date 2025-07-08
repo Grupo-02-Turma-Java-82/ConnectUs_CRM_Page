@@ -1,8 +1,10 @@
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
 import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 
 export function Navbar() {
+  const navigate = useNavigate();
+
   return (
     <header className="border-b border-border bg-card/50 backdrop-blur">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
@@ -18,9 +20,8 @@ export function Navbar() {
           <span className="text-xl font-bold text-foreground">ConnectUS</span>
         </div>
 
-        <Button>
-          <Link to="/dashboard">Acessar Dashboard</Link>
-
+        <Button onClick={() => navigate("/dashboard")}>
+          Acessar Dashboard
           <ArrowRight size={24} />
         </Button>
       </div>
