@@ -1,69 +1,113 @@
-# React + TypeScript + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# ConnectUS CRM
 
-Currently, two official plugins are available:
+![./ConnectUs.png](https://ik.imagekit.io/brunogodoy/logoConnectUS_zMK4zUiI2?updatedAt=1751742289467)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<p>
+  <strong>ConnectUS</strong> é uma plataforma de CRM moderna e intuitiva, desenvolvida para facilitar o gerenciamento de contatos, oportunidades de vendas e crescimento de negócios. Construída com <strong>React</strong>, <strong>TypeScript</strong> e <strong>Vite</strong>, a interface utiliza <strong>Tailwind CSS</strong> e bibliotecas de UI modernas para uma experiência fluida e responsiva.
+</p>
 
-## Expanding the ESLint configuration
+</div>
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🔮 Visão Geral
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+O sistema permite cadastrar e visualizar clientes (CPF e CNPJ), acompanhar oportunidades de negócio em tempo real por meio de um pipeline visual e acessar métricas no dashboard interativo.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### ✨ Funcionalidades Implementadas
+
+* **Gestão de Clientes**: Suporte para pessoas físicas (CPF) e jurídicas (CNPJ).
+* **Pipeline de Vendas**: Visualização em tempo real de oportunidades.
+* **Dashboard Interativo**: Métricas de clientes e vendas.
+* **Design Responsivo**: Adaptação automática para dispositivos móveis.
+* **Notificações**: Alertas com `react-toastify`.
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+* **Framework**: [React](https://react.dev/)
+* **Build Tool**: [Vite](https://vitejs.dev/)
+* **Linguagem**: [TypeScript](https://www.typescriptlang.org/)
+* **Estilização**:
+    * [Tailwind CSS](https://tailwindcss.com/)
+    * Componentes de UI: `@radix-ui/react-*`, `lucide-react`, `@phosphor-icons/react`
+* **Gerenciamento de Estado**: React Context API
+* **Validação de Formulários**: react-hook-form + zod
+* **Roteamento**: react-router-dom
+* **Requisições HTTP**: axios
+* **Tabelas**: @tanstack/react-table
+
+---
+
+## 🛠️ Começando
+
+### Pré-requisitos
+
+* [Node.js](https://nodejs.org/en) (versão 18 ou superior)
+* [npm](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/)
+
+### Instalação
+
+1. **Clone o repositório:**
+    ```sh
+    git clone https://github.com/seu-usuario/connectus-crm-page.git
+    ```
+
+2. **Acesse o diretório do projeto:**
+    ```sh
+    cd connectus-crm-page
+    ```
+
+3. **Instale as dependências:**
+    ```sh
+    npm install
+    ```
+
+4. **Crie o arquivo `.env`:**
+    ```env
+    VITE_API_URL=http://localhost:8080
+    ```
+
+### Executando o Projeto
+
+```sh
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Acesse `http://localhost:5173` no navegador.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📂 Estrutura de Arquivos
 ```
+/src
+├── components/           # Componentes reutilizáveis
+│   ├── ui/               # Base UI (Radix/Shadcn)
+│   ├── ClienteForm.tsx   # Cadastro de clientes
+│   ├── Dashboard.tsx     # Painel de métricas
+│   ├── Navbar.tsx        # Navegação responsiva
+│   └── Pipeline.tsx      # Etapas de vendas
+├── pages/
+│   └── Home.tsx          # Página principal
+├── lib/
+│   └── api.ts            # Configuração do Axios
+├── App.tsx               # Componente raiz
+└── main.tsx              # Entrada da aplicação
+```
+
+---
+
+## 📜 Scripts Disponíveis
+
+- `npm run dev` – Inicia o servidor de desenvolvimento  
+- `npm run build` – Compila o projeto para produção  
+- `npm run preview` – Visualiza a build de produção localmente  
+
+---
+
+## 🤝 Contato
+
+📩 **grupo02turmajava82@hotmail.com**
