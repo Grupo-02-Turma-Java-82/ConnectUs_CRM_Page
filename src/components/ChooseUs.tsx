@@ -1,15 +1,17 @@
+import { CircleCheckBig } from "lucide-react";
+
 export function ChooseUs() {
   return (
     <section className="py-20 px-6">
       <div className="container mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Texto com benefícios */}
           <div>
             <h2 className="text-4xl font-bold text-foreground mb-6">
               Por Que Escolher Nossa API CRM?
             </h2>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              Mais de 10.000 empresas já confiam em nossa plataforma para gerenciar seus relacionamentos e impulsionar suas vendas.
+              Mais de 10.000 empresas já confiam em nossa plataforma para
+              gerenciar seus relacionamentos e impulsionar suas vendas.
             </p>
             <div className="space-y-4">
               {[
@@ -17,31 +19,17 @@ export function ChooseUs() {
                 "Economize 3 horas por dia em tarefas administrativas",
                 "Tenha visibilidade completa do seu pipeline",
                 "Melhore o relacionamento com seus clientes",
-                "Tome decisões baseadas em dados reais"
+                "Tome decisões baseadas em dados reais",
               ].map((item, index) => (
                 <div key={index} className="flex items-center gap-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-circle-check-big h-5 w-5 text-green-400 flex-shrink-0"
-                  >
-                    <path d="M21.801 10A10 10 0 1 1 17 3.335" />
-                    <path d="m9 11 3 3L22 4" />
-                  </svg>
+                  <CircleCheckBig size={24} className="text-green-400" />
+
                   <span className="text-foreground">{item}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Card de dashboard */}
           <div className="relative">
             <div className="rounded-lg shadow-sm bg-gradient-top-right p-8 text-white border-0">
               <div className="flex flex-col space-y-1.5 p-6 pb-4">
@@ -70,6 +58,6 @@ export function ChooseUs() {
           </div>
         </div>
       </div>
-    </section>);
-
+    </section>
+  );
 }
