@@ -182,7 +182,7 @@ export function DataTable<TData extends { id: number; nome: string }, TValue>({
                       </AlertDialogTitle>
                       <AlertDialogDescription>
                         Esta ação não pode ser desfeita. Isto irá apagar
-                        permanentemente o cliente
+                        permanentemente o registro de
                         <strong className="px-1">{row.original.nome}</strong>
                         dos nossos servidores.
                       </AlertDialogDescription>
