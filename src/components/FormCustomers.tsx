@@ -62,20 +62,12 @@ export function FormCustomers({
   }, [isEditMode, initialData, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const dataToSend: Record<string, any> = {
-      nome: values.nome,
-      email: values.email,
-      foto: values.foto,
-      telefone: values.telefone,
-      leadScore: values.leadScore,
-    };
+    const dataToSend = { ...values };
 
-    if (values.tipoPessoa === "FISICA" && values.cpf) {
-      dataToSend.cpf = values.cpf;
-    }
-
-    if (values.tipoPessoa === "JURIDICA" && values.cnpj) {
-      dataToSend.cnpj = values.cnpj;
+    if (dataToSend.tipoPessoa === "FISICA") {
+      delete (dataToSend as Partial<typeof dataToSend>).cnpj;
+    } else {
+      delete (dataToSend as Partial<typeof dataToSend>).cpf;
     }
 
     if (isEditMode && initialData) {
@@ -94,6 +86,7 @@ export function FormCustomers({
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-6 bg-card border p-6 rounded-lg"
       >
+        {/* ... O resto do seu JSX permanece o mesmo ... */}
         <div className="grid md:grid-cols-2 gap-6">
           <FormInput
             control={form.control}

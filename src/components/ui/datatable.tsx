@@ -50,13 +50,13 @@ import { EmptyTable } from "../EmptyTable";
 import { Edit, SearchIcon, Trash2 } from "lucide-react";
 import { FormCustomers } from "../FormCustomers";
 
-interface DataTableProps<TData extends { id: number; nome: string }, TValue> {
+interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   handleDelete?: (id: number) => void;
 }
 
-export function DataTable<TData extends { id: number; nome: string }, TValue>({
+export function DataTable<TData, TValue>({
   columns,
   data,
   handleDelete,
@@ -182,9 +182,7 @@ export function DataTable<TData extends { id: number; nome: string }, TValue>({
                       </AlertDialogTitle>
                       <AlertDialogDescription>
                         Esta ação não pode ser desfeita. Isto irá apagar
-                        permanentemente o registro de
-                        <strong className="px-1">{row.original.nome}</strong>
-                        dos nossos servidores.
+                        permanentemente este registro de nossos servidores.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
