@@ -80,23 +80,20 @@ npm run dev
 Acesse `http://localhost:5173` no navegador.
 
 ---
+## 6. Participantes
 
-## 📂 Estrutura de Arquivos
-```
-/src
-├── components/           # Componentes reutilizáveis
-│   ├── ui/               # Base UI (Radix/Shadcn)
-│   ├── ClienteForm.tsx   # Cadastro de clientes
-│   ├── Dashboard.tsx     # Painel de métricas
-│   ├── Navbar.tsx        # Navegação responsiva
-│   └── Pipeline.tsx      # Etapas de vendas
-├── pages/
-│   └── Home.tsx          # Página principal
-├── lib/
-│   └── api.ts            # Configuração do Axios
-├── App.tsx               # Componente raiz
-└── main.tsx              # Entrada da aplicação
-```
+Este projeto foi desenvolvido por:
+
+| Nome                | GitHub                                           | Função                 |
+|---------------------|--------------------------------------------------|------------------------|
+| Bruno Godoy         | [Brunogodoy2911](https://github.com/Brunogodoy2911) | Dev/Master         |
+| Felipe Peronica     | [feperonica](https://github.com/feperonica)     |  Dev      |
+| Jovani de Souza     | [JovaniOUnico](https://github.com/JovaniOUnico) | Dev            |
+| Lívia D’Alexandri   | [liviadalexandri](https://github.com/liviadalexandri) | Dev               |
+| Luiza Gonçalves     | [luizaeg](https://github.com/luizaeg)           | Dev                 |
+| Maria Helena        | [squarcinihelena](https://github.com/squarcinihelena) | Dev               |
+| Rafaela Giometti    | [rafagiometti](https://github.com/rafagiometti) | Dev                    |
+
 
 ---
 
