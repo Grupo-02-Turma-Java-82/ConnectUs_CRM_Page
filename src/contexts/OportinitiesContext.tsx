@@ -22,8 +22,6 @@ export function OportunitiesProvider({ children }: { children: ReactNode }) {
       const response = await api.get("/oportunidades");
 
       setOportunities(response.data ?? []);
-
-      toast.dark("Oportunidades carregadas com sucesso");
     } catch (e) {
       console.error(e);
       if (e instanceof AxiosError) {

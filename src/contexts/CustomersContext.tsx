@@ -86,28 +86,43 @@ export function CustomersProvider({ children }: { children: ReactNode }) {
   const [totalOfPage, setTotalOfPage] = useState(0);
 
   const fetchCustomers = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const response = await api.get(
-        `/clientes?pagina=${page}&tamanho=10&ordenarPor=id&direcao=asc`
-      );
+    const controller = new AbortController();
 
-      setCustomers(response.data.content ?? []);
-      setTotalOfPage(response.data.totalPages ?? 0);
-
-      toast.dark("Clientes carregados com sucesso");
-    } catch (e) {
-      console.error(e);
-      if (e instanceof AxiosError) {
-        console.error("API Error:", e.response?.data.message);
-        toast.error(
-          e.response?.data.message || "Não foi possível carregar os clientes."
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await api.get(
+          `/clientes?pagina=${page}&tamanho=10&ordenarPor=id&direcao=asc`,
+          {
+            signal: controller.signal,
+          }
         );
-        return;
+
+        setCustomers(response.data.content ?? []);
+        setTotalOfPage(response.data.totalPages ?? 0);
+      } catch (e) {
+        if (e instanceof AxiosError) {
+          if (e.name === "CanceledError") {
+            console.log("Request canceled");
+            return;
+          }
+          console.error("API Error:", e.response?.data.message);
+          toast.error(
+            e.response?.data.message || "Não foi possível carregar os clientes."
+          );
+        } else {
+          console.error(e);
+        }
+      } finally {
+        setIsLoading(false);
       }
-    } finally {
-      setIsLoading(false);
-    }
+    };
+
+    fetchData();
+
+    return () => {
+      controller.abort();
+    };
   }, [page]);
 
   async function addCustomer(data: CustomerFormData) {

@@ -21,8 +21,6 @@ export function UsersProvider({ children }: { children: ReactNode }) {
       const response = await api.get("/usuarios/all");
 
       setUsers(response.data ?? []);
-
-      toast.dark("Usuários carregados com sucesso");
     } catch (e) {
       console.error(e);
       if (e instanceof AxiosError) {
