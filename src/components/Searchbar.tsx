@@ -19,7 +19,11 @@ export default function Searchbar() {
       </div>
 
       <div className="flex items-center md:gap-3">
-        <Button variant="ghost" size="icon" className="text-foreground">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="text-foreground pl-2 sm:pl-0"
+        >
           <BellIcon className="h-4 w-4" />
         </Button>
         <Button

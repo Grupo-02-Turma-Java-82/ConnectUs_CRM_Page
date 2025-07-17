@@ -102,6 +102,7 @@ export default function CustomersDataTable({
       columns={columns}
       data={customers}
       handleDelete={deleteCustomer}
+      tableFor="Clientes"
     />
   );
 }

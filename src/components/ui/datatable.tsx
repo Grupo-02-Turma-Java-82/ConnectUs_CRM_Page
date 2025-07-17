@@ -50,16 +50,18 @@ import { EmptyTable } from "../EmptyTable";
 import { Edit, SearchIcon, Trash2 } from "lucide-react";
 import { FormCustomers } from "../FormCustomers";
 
-interface DataTableProps<TData extends { id: number; nome: string }, TValue> {
+interface DataTableProps<TData extends { id: number }, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   handleDelete?: (id: number) => void;
+  tableFor: "Clientes" | "Oportunidades" | "Usuários";
 }
 
-export function DataTable<TData extends { id: number; nome: string }, TValue>({
+export function DataTable<TData extends { id: number }, TValue>({
   columns,
   data,
   handleDelete,
+  tableFor,
 }: DataTableProps<TData, TValue>) {
   const [globalFilter, setGlobalFilter] = useState("");
   const [editDialogOpen, setEditDialogOpen] = useState(false);
@@ -102,7 +104,7 @@ export function DataTable<TData extends { id: number; nome: string }, TValue>({
         <div className="relative flex-1 max-w-sm mb-4">
           <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
-            placeholder="Buscar clientes..."
+            placeholder={`Buscar por ${tableFor}...`}
             value={globalFilter ?? ""}
             onChange={(e) => setGlobalFilter(e.target.value)}
             className="pl-10 bg-background border-border"
@@ -164,15 +166,17 @@ export function DataTable<TData extends { id: number; nome: string }, TValue>({
                       <span>Editar</span>
                     </DropdownMenuItem>
 
-                    <AlertDialogTrigger asChild>
-                      <DropdownMenuItem
-                        onSelect={(e) => e.preventDefault()}
-                        className="flex items-center focus:bg-red-500/10 cursor-pointer"
-                      >
-                        <Trash2 size={16} className="mr-2" />
-                        <span>Remover</span>
-                      </DropdownMenuItem>
-                    </AlertDialogTrigger>
+                    {tableFor != "Usuários" && (
+                      <AlertDialogTrigger asChild>
+                        <DropdownMenuItem
+                          onSelect={(e) => e.preventDefault()}
+                          className="flex items-center focus:bg-red-500/10 cursor-pointer"
+                        >
+                          <Trash2 size={16} className="mr-2" />
+                          <span>Remover</span>
+                        </DropdownMenuItem>
+                      </AlertDialogTrigger>
+                    )}
                   </DropdownMenuContent>
 
                   <AlertDialogContent>
@@ -182,9 +186,8 @@ export function DataTable<TData extends { id: number; nome: string }, TValue>({
                       </AlertDialogTitle>
                       <AlertDialogDescription>
                         Esta ação não pode ser desfeita. Isto irá apagar
-                        permanentemente o registro de
-                        <strong className="px-1">{row.original.nome}</strong>
-                        dos nossos servidores.
+                        permanentemente o registro dos(as) {tableFor} dos nossos
+                        servidores.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -243,13 +246,13 @@ export function DataTable<TData extends { id: number; nome: string }, TValue>({
         </Button>
       </div>
 
-      <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+      {/* <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
         <DialogContent className="sm:max-w-[625px]">
           <DialogHeader>
-            <DialogTitle>Editar Cliente</DialogTitle>
+            <DialogTitle>Editar {tableFor}</DialogTitle>
             <DialogDescription>
-              Faça alterações nos dados do cliente aqui. Clique em salvar quando
-              terminar.
+              Faça alterações nos dados dos(as) {tableFor} aqui. Clique em
+              salvar quando terminar.
             </DialogDescription>
           </DialogHeader>
 
@@ -259,7 +262,7 @@ export function DataTable<TData extends { id: number; nome: string }, TValue>({
             onClose={() => setEditDialogOpen(false)}
           />
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </div>
   );
 }

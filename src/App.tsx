@@ -5,7 +5,7 @@ export function App() {
   return (
     <>
       <Routes />
-      <ToastContainer />
+      <ToastContainer theme="dark" />
     </>
   );
 }

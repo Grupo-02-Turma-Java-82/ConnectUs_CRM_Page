@@ -151,6 +151,7 @@ export function CustomersProvider({ children }: { children: ReactNode }) {
 
       await api.delete(`/clientes/${id}`);
       fetchCustomers();
+      toast.success(`Cliente com o id ${id}, deletado com sucesso`);
     } catch (e) {
       if (e instanceof AxiosError) {
         toast.error(

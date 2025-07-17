@@ -62,5 +62,11 @@ interface Props {
   users: Users[];
 }
 export default function UsersDataTable({ users }: Props) {
-  return <DataTable<Users, unknown> columns={columns} data={users} />;
+  return (
+    <DataTable<Users, unknown>
+      columns={columns}
+      data={users}
+      tableFor="Usuários"
+    />
+  );
 }

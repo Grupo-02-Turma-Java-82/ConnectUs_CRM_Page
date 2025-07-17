@@ -48,7 +48,7 @@ interface Props {
   deleteOportunities?: (id: number) => void;
 }
 
-export default function OportunitiesDataTable({
+export function OportunitiesDataTable({
   oportunities,
   deleteOportunities,
 }: Props) {
@@ -57,6 +57,7 @@ export default function OportunitiesDataTable({
       columns={columns}
       data={oportunities}
       handleDelete={deleteOportunities}
+      tableFor="Oportunidades"
     />
   );
 }

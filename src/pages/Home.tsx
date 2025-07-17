@@ -3,7 +3,6 @@ import { Features } from "@/components/Features";
 import { GoDashboard } from "@/components/GoDashboard";
 import { Hero } from "@/components/Hero";
 
-
 export function Home() {
   return (
     <div>

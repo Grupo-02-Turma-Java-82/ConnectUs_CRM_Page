@@ -19,7 +19,7 @@ import type { Customer } from "@/models/Customers";
 
 type FormCustomersProps = {
   isEditMode: boolean;
-  initialData: Customer | null;
+  initialData?: Customer | null;
   onClose?: () => void;
 };
 
@@ -62,12 +62,15 @@ export function FormCustomers({
   }, [isEditMode, initialData, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const dataToSend: Record<string, any> = {
+    const dataToSend: z.infer<typeof formSchema> = {
       nome: values.nome,
       email: values.email,
       foto: values.foto,
       telefone: values.telefone,
       leadScore: values.leadScore,
+      tipoPessoa: values.tipoPessoa,
+      cpf: values.tipoPessoa === "FISICA" ? values.cpf : undefined,
+      cnpj: values.tipoPessoa === "JURIDICA" ? values.cnpj : undefined,
     };
 
     if (values.tipoPessoa === "FISICA" && values.cpf) {

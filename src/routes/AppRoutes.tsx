@@ -27,7 +27,7 @@ export function AppRoutes() {
           index
           element={
             <CustomersProvider>
-              <Customers />{" "}
+              <Customers />
             </CustomersProvider>
           }
         />
@@ -49,7 +49,11 @@ export function AppRoutes() {
           index
           element={
             <OportunitiesProvider>
-              <Oportunities />
+              <UsersProvider>
+                <CustomersProvider>
+                  <Oportunities />
+                </CustomersProvider>
+              </UsersProvider>
             </OportunitiesProvider>
           }
         />
