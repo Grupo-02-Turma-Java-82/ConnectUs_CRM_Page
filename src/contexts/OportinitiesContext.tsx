@@ -10,6 +10,7 @@ type OportunitiesContextData = {
   Oportunities: Oportunities[];
   deleteOportunities: (id: number) => Promise<void>;
   addOpportunities: (data: OpportunitiesFormData) => Promise<void>;
+  updateOpportunities: (data: OpportunitiesFormData) => Promise<void>;
 };
 
 export const opportunityStatus = [
@@ -90,12 +91,33 @@ export function OportunitiesProvider({ children }: { children: ReactNode }) {
       setIsLoading(true);
 
       await api.delete(`/oportunidades/${id}`);
+      toast.success("Oportunidade deletada com sucesso!");
       fetchOportunities();
     } catch (e) {
       if (e instanceof AxiosError) {
         toast.error(
           e.response?.data?.message ||
             "Não foi possível excluir a oportunidade."
+        );
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function updateOpportunities(data: OpportunitiesFormData) {
+    try {
+      setIsLoading(true);
+
+      await api.put(`/oportunidades`, data);
+
+      toast.success("Oportunidade atualizada com sucesso!");
+      fetchOportunities();
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        toast.error(
+          e.response?.data?.message ||
+            "Não foi possível atualizar a oportunidade."
         );
       }
     } finally {
@@ -114,6 +136,7 @@ export function OportunitiesProvider({ children }: { children: ReactNode }) {
         Oportunities,
         deleteOportunities,
         addOpportunities,
+        updateOpportunities,
       }}
     >
       {children}
