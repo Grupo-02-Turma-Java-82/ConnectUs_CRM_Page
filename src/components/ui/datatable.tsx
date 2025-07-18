@@ -75,7 +75,7 @@ export function DataTable<TData extends { id: number }, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     initialState: {
       pagination: {
-        pageSize: 10,
+        pageSize: 8,
       },
     },
     onGlobalFilterChange: setGlobalFilter,
