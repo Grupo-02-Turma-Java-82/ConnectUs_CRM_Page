@@ -32,7 +32,11 @@ type FormOpportunitiesProps = {
   onClose?: () => void;
 };
 
-export function FormOpportunities({ onClose }: FormOpportunitiesProps) {
+export function FormOpportunities({
+  onClose,
+  isEditMode,
+  initialData,
+}: FormOpportunitiesProps) {
   const { addOpportunities } = useOportunities();
   const { users } = useUsers();
   const { customers } = useCustomers();
@@ -48,6 +52,19 @@ export function FormOpportunities({ onClose }: FormOpportunitiesProps) {
       cliente: { id: undefined },
     },
   });
+
+  // useEffect(() => {
+  //   if (isEditMode && initialData) {
+  //     form.reset({
+  //       titulo: initialData.titulo,
+  //       descricao: initialData.descricao,
+  //       valorEstimado: initialData.valorEstimado,
+  //       status: initialData.status,
+  //       usuario: { id: initialData.usuario?.id },
+  //       cliente: { id: initialData.cliente?.id },
+  //     });
+  //   }
+  // }, [isEditMode, initialData, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await addOpportunities(values);
@@ -73,7 +90,7 @@ export function FormOpportunities({ onClose }: FormOpportunitiesProps) {
           control={form.control}
           name="descricao"
           label="Descrição"
-          placeholder="Detalhes sobre a oportunidade"
+          placeholder="Detalhes sobre a oportunidade..."
         />
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -168,7 +185,7 @@ export function FormOpportunities({ onClose }: FormOpportunitiesProps) {
 
         <div className="flex justify-end pt-4">
           <Button type="submit" className="cursor-pointer">
-            Cadastrar Oportunidade
+            {isEditMode ? "Atualizar" : "Cadastrar"}
           </Button>
         </div>
       </form>
