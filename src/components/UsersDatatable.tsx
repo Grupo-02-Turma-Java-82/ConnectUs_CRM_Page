@@ -2,6 +2,7 @@ import type { SyntheticEvent } from "react";
 import type { Users } from "@/models/Users";
 import { type ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "./ui/datatable";
+import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 
 const PLACEHOLDER_IMG =
   "https://ik.imagekit.io/brunogodoy/placeholder.jpg?updatedAt=1751288384316";
@@ -20,12 +21,14 @@ export const columns: ColumnDef<Users>[] = [
       };
 
       return (
-        <img
-          className="rounded-full object-cover h-10 w-10"
-          src={imageSrc}
-          alt={`Foto de ${row.getValue("nome")}`}
-          onError={handleImageError}
-        />
+        <Avatar>
+          <AvatarImage
+            src={imageSrc}
+            alt={`Imagem do cliente ${row.getValue("nome")}`}
+            className="h-8 w-8 rounded-full"
+            onError={handleImageError}
+          />
+        </Avatar>
       );
     },
   },
