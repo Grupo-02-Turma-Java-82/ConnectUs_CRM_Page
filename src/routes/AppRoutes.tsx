@@ -7,6 +7,9 @@ import { Home } from "@/pages/Home";
 import { Route, Routes } from "react-router";
 import { Users } from "@/pages/Users";
 import { Oportunities } from "@/pages/Oportunities";
+import { CustomersProvider } from "@/contexts/CustomersContext";
+import { UsersProvider } from "@/contexts/UsersContext";
+import { OportunitiesProvider } from "@/contexts/OportinitiesContext";
 
 export function AppRoutes() {
   return (
@@ -16,24 +19,55 @@ export function AppRoutes() {
       </Route>
 
       <Route path="/dashboard" element={<DashboardLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="customers" element={<Customers />} />
+        <Route
+          index
+          element={
+            <OportunitiesProvider>
+              <UsersProvider>
+                <CustomersProvider>
+                  <Dashboard />
+                </CustomersProvider>
+              </UsersProvider>
+            </OportunitiesProvider>
+          }
+        />
       </Route>
 
       <Route path="/customers" element={<DashboardLayout />}>
-        <Route index element={<Customers />} />
+        <Route
+          index
+          element={
+            <CustomersProvider>
+              <Customers />
+            </CustomersProvider>
+          }
+        />
       </Route>
 
       <Route path="/users" element={<DashboardLayout />}>
-        <Route index element={<Users />} />
+        <Route
+          index
+          element={
+            <UsersProvider>
+              <Users />
+            </UsersProvider>
+          }
+        />
       </Route>
 
       <Route path="/opportunities" element={<DashboardLayout />}>
-        <Route index element={<Oportunities />} />
-      </Route>
-
-      <Route path="/customers" element={<DashboardLayout />}>
-        <Route index element={<Customers />} />
+        <Route
+          index
+          element={
+            <OportunitiesProvider>
+              <UsersProvider>
+                <CustomersProvider>
+                  <Oportunities />
+                </CustomersProvider>
+              </UsersProvider>
+            </OportunitiesProvider>
+          }
+        />
       </Route>
 
       <Route path="*" element={<NotFound />} />

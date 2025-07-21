@@ -42,28 +42,34 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { EmptyTable } from "../EmptyTable";
 import { Edit, SearchIcon, Trash2 } from "lucide-react";
 import { FormCustomers } from "../FormCustomers";
+import { FormOpportunities } from "../FormOpportunities";
+import { FormUsers } from "../FormUsers";
 
-interface DataTableProps<TData, TValue> {
+import type { Customer } from "@/models/Customers";
+import type { Users } from "@/models/Users";
+
+interface DataTableProps<TData extends { id: number }, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   handleDelete?: (id: number) => void;
+  tableFor: "Clientes" | "Oportunidades" | "Usuários";
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends { id: number }, TValue>({
   columns,
   data,
   handleDelete,
+  tableFor,
 }: DataTableProps<TData, TValue>) {
   const [globalFilter, setGlobalFilter] = useState("");
   const [editDialogOpen, setEditDialogOpen] = useState(false);
-  const [selectedCustomer, setSelectedCustomer] = useState<TData | null>(null);
+  const [selectedRow, setSelectedRow] = useState<TData | null>(null);
 
   const table = useReactTable({
     data,
@@ -73,7 +79,7 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     initialState: {
       pagination: {
-        pageSize: 10,
+        pageSize: 8,
       },
     },
     onGlobalFilterChange: setGlobalFilter,
@@ -96,13 +102,38 @@ export function DataTable<TData, TValue>({
     );
   }
 
+  const renderEditForm = () => {
+    switch (tableFor) {
+      case "Clientes":
+        return (
+          <FormCustomers
+            isEditMode={true}
+            initialData={selectedRow as Customer | null}
+            onClose={() => setEditDialogOpen(false)}
+          />
+        );
+      case "Oportunidades":
+        return <FormOpportunities onClose={() => setEditDialogOpen(false)} />;
+      case "Usuários":
+        return (
+          <FormUsers
+            isEditMode={true}
+            initialData={selectedRow as Users | null}
+            onClose={() => setEditDialogOpen(false)}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div>
       <div className="rounded-md border bg-card p-4">
         <div className="relative flex-1 max-w-sm mb-4">
           <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
-            placeholder="Buscar clientes..."
+            placeholder={`Buscar por ${tableFor}...`}
             value={globalFilter ?? ""}
             onChange={(e) => setGlobalFilter(e.target.value)}
             className="pl-10 bg-background border-border"
@@ -153,26 +184,30 @@ export function DataTable<TData, TValue>({
                     <DropdownMenuLabel>Ações</DropdownMenuLabel>
                     <DropdownMenuSeparator />
 
-                    <DropdownMenuItem
-                      className="flex items-center cursor-pointer"
-                      onClick={() => {
-                        setSelectedCustomer(row.original);
-                        setEditDialogOpen(true);
-                      }}
-                    >
-                      <Edit size={16} className="mr-2" />
-                      <span>Editar</span>
-                    </DropdownMenuItem>
-
-                    <AlertDialogTrigger asChild>
+                    {tableFor !== "Oportunidades" && (
                       <DropdownMenuItem
-                        onSelect={(e) => e.preventDefault()}
-                        className="flex items-center focus:bg-red-500/10 cursor-pointer"
+                        className="flex items-center cursor-pointer"
+                        onClick={() => {
+                          setSelectedRow(row.original);
+                          setEditDialogOpen(true);
+                        }}
                       >
-                        <Trash2 size={16} className="mr-2" />
-                        <span>Remover</span>
+                        <Edit size={16} className="mr-2" />
+                        <span>Editar</span>
                       </DropdownMenuItem>
-                    </AlertDialogTrigger>
+                    )}
+
+                    {tableFor !== "Usuários" && (
+                      <AlertDialogTrigger asChild>
+                        <DropdownMenuItem
+                          onSelect={(e) => e.preventDefault()}
+                          className="flex items-center focus:bg-red-500/10 cursor-pointer"
+                        >
+                          <Trash2 size={16} className="mr-2" />
+                          <span>Remover</span>
+                        </DropdownMenuItem>
+                      </AlertDialogTrigger>
+                    )}
                   </DropdownMenuContent>
 
                   <AlertDialogContent>
@@ -182,18 +217,17 @@ export function DataTable<TData, TValue>({
                       </AlertDialogTitle>
                       <AlertDialogDescription>
                         Esta ação não pode ser desfeita. Isto irá apagar
-                        permanentemente este registro de nossos servidores.
+                        permanentemente o registro dos(as) {tableFor} dos nossos
+                        servidores.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel className="cursor-pointer">
-                        Cancelar
-                      </AlertDialogCancel>
+                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
                       <AlertDialogAction
                         onClick={() =>
                           handleDelete && handleDelete(row.original.id)
                         }
-                        className="bg-red-600 hover:bg-red-700 cursor-pointer"
+                        className="bg-red-600 hover:bg-red-700"
                       >
                         Confirmar Exclusão
                       </AlertDialogAction>
@@ -226,7 +260,6 @@ export function DataTable<TData, TValue>({
           variant="outline"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
-          className="cursor-pointer"
         >
           Anterior
         </Button>
@@ -235,7 +268,6 @@ export function DataTable<TData, TValue>({
           variant="outline"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
-          className="cursor-pointer"
         >
           Próximo
         </Button>
@@ -244,18 +276,14 @@ export function DataTable<TData, TValue>({
       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
         <DialogContent className="sm:max-w-[625px]">
           <DialogHeader>
-            <DialogTitle>Editar Cliente</DialogTitle>
+            <DialogTitle>Editar {tableFor}</DialogTitle>
             <DialogDescription>
-              Faça alterações nos dados do cliente aqui. Clique em salvar quando
-              terminar.
+              Faça alterações nos dados dos(as) {tableFor} aqui. Clique em
+              salvar quando terminar.
             </DialogDescription>
           </DialogHeader>
 
-          <FormCustomers
-            isEditMode={true}
-            initialData={selectedCustomer}
-            onClose={() => setEditDialogOpen(false)}
-          />
+          {renderEditForm()}
         </DialogContent>
       </Dialog>
     </div>

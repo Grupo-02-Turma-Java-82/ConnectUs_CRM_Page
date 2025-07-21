@@ -33,6 +33,12 @@
   --sidebar-accent-foreground: hsl(240 5.9% 10%);
   --sidebar-border: hsl(220 13% 91%);
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
+
+  --chart-1: 0.61 0.11 210.39; /* Azul (do seu --primary) */
+  --chart-2: 0.7 0.15 180; /* Ciano/Verde Água (Cor complementar) */
+  --chart-3: 0.61 0.28 29.57; /* Laranja/Vermelho (do seu --destructive) */
+  --chart-4: 0.8 0.15 80; /* Amarelo (Cor complementar) */
+  --chart-5: 0.65 0.15 290; /* Roxo Vibrante (Cor complementar) */
 }
 
 body {
@@ -56,6 +62,19 @@ body {
     /* --dark-purple */ oklch(0.18 0.09 288.64) 50%,
     /* --dark-purple-2 */ oklch(var(--primary)) 100% /* --moonstone */
   );
+}
+
+::-webkit-scrollbar {
+  width: 0.2rem;
+  height: 0.4rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e4ece9;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 
 @layer base {

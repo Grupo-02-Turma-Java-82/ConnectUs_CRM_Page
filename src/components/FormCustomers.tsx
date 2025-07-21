@@ -19,7 +19,7 @@ import type { Customer } from "@/models/Customers";
 
 type FormCustomersProps = {
   isEditMode: boolean;
-  initialData: Customer | null;
+  initialData?: Customer | null;
   onClose?: () => void;
 };
 
@@ -62,7 +62,17 @@ export function FormCustomers({
   }, [isEditMode, initialData, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const dataToSend = { ...values };
+
+    const dataToSend: z.infer<typeof formSchema> = {
+      nome: values.nome,
+      email: values.email,
+      foto: values.foto,
+      telefone: values.telefone,
+      leadScore: values.leadScore,
+      tipoPessoa: values.tipoPessoa,
+      cpf: values.tipoPessoa === "FISICA" ? values.cpf : undefined,
+      cnpj: values.tipoPessoa === "JURIDICA" ? values.cnpj : undefined,
+    };
 
     if (dataToSend.tipoPessoa === "FISICA") {
       delete (dataToSend as Partial<typeof dataToSend>).cnpj;
@@ -86,7 +96,6 @@ export function FormCustomers({
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-6 bg-card border p-6 rounded-lg"
       >
-        {/* ... O resto do seu JSX permanece o mesmo ... */}
         <div className="grid md:grid-cols-2 gap-6">
           <FormInput
             control={form.control}

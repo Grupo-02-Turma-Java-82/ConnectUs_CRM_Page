@@ -10,6 +10,8 @@ import { api } from "@/services/api";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { z } from "zod";
+import { useNotifications } from "@/hooks/useNotifications";
+import { v4 as uuidv4 } from "uuid";
 
 type CustomersContextData = {
   isLoading: boolean;
@@ -80,34 +82,50 @@ type CustomerFormData = z.infer<typeof formSchema>;
 export const CustomersContext = createContext({} as CustomersContextData);
 
 export function CustomersProvider({ children }: { children: ReactNode }) {
+  const { addNotification } = useNotifications();
   const [isLoading, setIsLoading] = useState(false);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [page, setPage] = useState(0);
   const [totalOfPage, setTotalOfPage] = useState(0);
 
   const fetchCustomers = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const response = await api.get(
-        `/clientes?pagina=${page}&tamanho=10&ordenarPor=id&direcao=asc`
-      );
+    const controller = new AbortController();
 
-      setCustomers(response.data.content ?? []);
-      setTotalOfPage(response.data.totalPages ?? 0);
-
-      toast.dark("Clientes carregados com sucesso");
-    } catch (e) {
-      console.error(e);
-      if (e instanceof AxiosError) {
-        console.error("API Error:", e.response?.data.message);
-        toast.error(
-          e.response?.data.message || "Não foi possível carregar os clientes."
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await api.get(
+          `/clientes?pagina=${page}&tamanho=10&ordenarPor=id&direcao=asc`,
+          {
+            signal: controller.signal,
+          }
         );
-        return;
+
+        setCustomers(response.data.content ?? []);
+        setTotalOfPage(response.data.totalPages ?? 0);
+      } catch (e) {
+        if (e instanceof AxiosError) {
+          if (e.name === "CanceledError") {
+            console.log("Request canceled");
+            return;
+          }
+          console.error("API Error:", e.response?.data.message);
+          toast.error(
+            e.response?.data.message || "Não foi possível carregar os clientes."
+          );
+        } else {
+          console.error(e);
+        }
+      } finally {
+        setIsLoading(false);
       }
-    } finally {
-      setIsLoading(false);
-    }
+    };
+
+    fetchData();
+
+    return () => {
+      controller.abort();
+    };
   }, [page]);
 
   async function addCustomer(data: CustomerFormData) {
@@ -117,6 +135,17 @@ export function CustomersProvider({ children }: { children: ReactNode }) {
       const { tipoPessoa, ...dataToSend } = data;
 
       await api.post("/clientes", dataToSend);
+      
+      const createdAt = new Date();
+      addNotification({
+        id: uuidv4(),
+        type: "Clientes",
+        action: "Criado",
+        message: `Cliente ${dataToSend.nome}, criado com sucesso!`,
+        createdAt: createdAt.toISOString(),
+        isRead: false,
+      });
+
       toast.success("Cliente cadastrado com sucesso!");
       fetchCustomers();
     } catch (e) {
@@ -135,7 +164,19 @@ export function CustomersProvider({ children }: { children: ReactNode }) {
       setIsLoading(true);
 
       await api.delete(`/clientes/${id}`);
+
+      const createdAt = new Date();
+      addNotification({
+        id: uuidv4(),
+        type: "Clientes",
+        action: "Deletado",
+        message: `Cliente com o id ${id}, deletado com sucesso!`,
+        createdAt: createdAt.toISOString(),
+        isRead: false,
+      });
+
       fetchCustomers();
+      toast.success(`Cliente com o id ${id}, deletado com sucesso`);
     } catch (e) {
       if (e instanceof AxiosError) {
         toast.error(
@@ -152,6 +193,16 @@ export function CustomersProvider({ children }: { children: ReactNode }) {
       setIsLoading(true);
 
       await api.put(`/clientes/${id}`, data);
+
+      const createdAt = new Date();
+      addNotification({
+        id: uuidv4(),
+        type: "Clientes",
+        action: "Atualizado",
+        message: `Cliente ${data.nome}, atualizado com sucesso!`,
+        createdAt: createdAt.toISOString(),
+        isRead: false,
+      });
 
       toast.success("Clientes atualizado com sucesso!");
       fetchCustomers();

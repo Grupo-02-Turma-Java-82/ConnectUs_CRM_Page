@@ -17,7 +17,9 @@ export function Navbar() {
               />
             </span>
           </div>
-          <span className="text-xl font-bold text-foreground">ConnectUS</span>
+          <span className="hidden sm:inline-flex text-xl font-bold text-foreground">
+            ConnectUS
+          </span>
         </div>
 
         <Button onClick={() => navigate("/dashboard")}>

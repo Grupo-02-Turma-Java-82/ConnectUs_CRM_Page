@@ -8,7 +8,7 @@ export function Hero() {
   return (
     <section className="py-20 px-6">
       <div className="container mx-auto text-center max-w-4xl">
-        <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+        <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
           Transforme Seus
           <span className="text-primary"> Relacionamentos</span>
           <br />

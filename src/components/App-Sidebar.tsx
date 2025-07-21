@@ -64,9 +64,11 @@ export function AppSidebar() {
   return (
     <Sidebar className="bg-background">
       <SidebarHeader>
-        <div className="py-4 px-2">
-          <h1 className="text-xl font-bold text-primary">ConnectUS</h1>
-        </div>
+        <NavLink to="/">
+          <div className="py-4 px-2">
+            <h1 className="text-xl font-bold text-primary">ConnectUS</h1>
+          </div>
+        </NavLink>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

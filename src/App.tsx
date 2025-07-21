@@ -1,18 +1,14 @@
-import { CustomersProvider } from "./contexts/CustomersContext";
-import { OportunitiesProvider } from "./contexts/OportinitiesContext";
-import { UsersProvider } from "./contexts/UsersContext";
-import { Routes } from "./routes";
 import { ToastContainer } from "react-toastify";
+import { Routes } from "./routes";
+import { NotificationsProvider } from "./contexts/NotificationsContext";
 
 export function App() {
   return (
-    <CustomersProvider>
-      <UsersProvider>
-        <OportunitiesProvider>
-          <Routes />
-          <ToastContainer />
-        </OportunitiesProvider>
-      </UsersProvider>
-    </CustomersProvider>
+    <>
+      <NotificationsProvider>
+        <Routes />
+      </NotificationsProvider>
+      <ToastContainer theme="dark" />
+    </>
   );
 }

@@ -26,7 +26,7 @@ export function Customers() {
       ) : (
         <>
           {isForm ? (
-            <FormCustomers />
+            <FormCustomers isEditMode={false} />
           ) : (
             <CustomersDataTable
               customers={customers}
