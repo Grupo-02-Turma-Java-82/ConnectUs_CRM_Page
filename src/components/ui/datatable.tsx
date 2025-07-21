@@ -52,17 +52,16 @@ import { FormOpportunities } from "../FormOpportunities";
 import { FormUsers } from "../FormUsers";
 
 import type { Customer } from "@/models/Customers";
-import type { Oportunities } from "@/models/Oportunities";
 import type { Users } from "@/models/Users";
 
-interface DataTableProps<TData extends { id: number; nome: string }, TValue> {
+interface DataTableProps<TData extends { id: number }, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   handleDelete?: (id: number) => void;
   tableFor: "Clientes" | "Oportunidades" | "Usuários";
 }
 
-export function DataTable<TData extends { id: number; nome: string }, TValue>({
+export function DataTable<TData extends { id: number }, TValue>({
   columns,
   data,
   handleDelete,
@@ -114,13 +113,7 @@ export function DataTable<TData extends { id: number; nome: string }, TValue>({
           />
         );
       case "Oportunidades":
-        return (
-          <FormOpportunities
-            isEditMode={true}
-            initialData={selectedRow as Oportunities | null}
-            onClose={() => setEditDialogOpen(false)}
-          />
-        );
+        return <FormOpportunities onClose={() => setEditDialogOpen(false)} />;
       case "Usuários":
         return (
           <FormUsers
@@ -191,16 +184,18 @@ export function DataTable<TData extends { id: number; nome: string }, TValue>({
                     <DropdownMenuLabel>Ações</DropdownMenuLabel>
                     <DropdownMenuSeparator />
 
-                    <DropdownMenuItem
-                      className="flex items-center cursor-pointer"
-                      onClick={() => {
-                        setSelectedRow(row.original);
-                        setEditDialogOpen(true);
-                      }}
-                    >
-                      <Edit size={16} className="mr-2" />
-                      <span>Editar</span>
-                    </DropdownMenuItem>
+                    {tableFor !== "Oportunidades" && (
+                      <DropdownMenuItem
+                        className="flex items-center cursor-pointer"
+                        onClick={() => {
+                          setSelectedRow(row.original);
+                          setEditDialogOpen(true);
+                        }}
+                      >
+                        <Edit size={16} className="mr-2" />
+                        <span>Editar</span>
+                      </DropdownMenuItem>
+                    )}
 
                     {tableFor !== "Usuários" && (
                       <AlertDialogTrigger asChild>

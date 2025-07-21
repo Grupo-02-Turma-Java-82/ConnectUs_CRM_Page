@@ -8,5 +8,6 @@ export type Customer = {
   cpf?: string;
   cnpj?: string;
   leadScore: number;
+  createdAt: Date;
   updatedAt: Date;
 };
