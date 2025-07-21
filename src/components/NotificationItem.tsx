@@ -64,14 +64,18 @@ export function NotificationItem({ notification, className, ...props }: Props) {
       <div className="flex-grow">
         <p
           className={
-            notification.isRead ? "opacity-50 line-through" : "font-semibold"
+            notification.isRead
+              ? "opacity-50 line-through max-w-8"
+              : "font-semibold max-w-8"
           }
         >
           {notification.type}
         </p>
         <p
           className={
-            notification.isRead ? "opacity-50 line-through text-sm" : "text-sm"
+            notification.isRead
+              ? "opacity-50 line-through text-[10px] sm:text-sm"
+              : "text-[10px] sm:text-sm"
           }
         >
           {notification.message}

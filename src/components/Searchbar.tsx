@@ -58,7 +58,7 @@ export default function Searchbar() {
               </div>
             ) : (
               <>
-                <Card className="p-0 max-h-90 overflow-y-auto gap-0">
+                <Card className="p-0 max-h-90  overflow-y-auto gap-0">
                   {notifications.map((notification) => (
                     <NotificationItem
                       key={notification.id}
@@ -74,7 +74,7 @@ export default function Searchbar() {
                     onClick={() => markAllAsRead()}
                   >
                     <Check size={22} />
-                    <p className="text-lg ">Marcar todas como lido</p>
+                    <p className="text-md ">Marcar todas como lido</p>
                   </Button>
 
                   <Button
@@ -83,7 +83,7 @@ export default function Searchbar() {
                     onClick={() => deleteAll()}
                   >
                     <Trash size={22} />
-                    <p className="text-lg">Deletar todas as notificações</p>
+                    <p className="text-md">Deletar todas as notificações</p>
                   </Button>
                 </div>
               </>
