@@ -58,6 +58,19 @@ body {
   );
 }
 
+::-webkit-scrollbar {
+  width: 0.2rem;
+  height: 0.4rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e4ece9;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
