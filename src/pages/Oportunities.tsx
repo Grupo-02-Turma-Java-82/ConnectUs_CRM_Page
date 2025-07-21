@@ -11,11 +11,14 @@ export function Oportunities() {
 
   return (
     <div className="p-5">
-      <div className="flex justify-between">
-        <h1 className="text-3xl font-bold text-foreground mb-6">
+      <div className="flex flex-col sm: justify-between">
+        <h1 className="text-3xl font-bold text-foreground mb-4 sm:mb-0">
           Oportunidades
         </h1>
-        <Button className="cursor-pointer" onClick={() => setIsForm(!isForm)}>
+        <Button
+          className="cursor-pointer mb-4"
+          onClick={() => setIsForm(!isForm)}
+        >
           {!isForm && <PlusIcon />}
           {isForm ? <p>Listar Opotunidades</p> : <p> Adicionar Opotunidade</p>}
         </Button>
