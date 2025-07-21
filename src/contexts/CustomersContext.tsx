@@ -10,6 +10,8 @@ import { api } from "@/services/api";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { z } from "zod";
+import { useNotifications } from "@/hooks/useNotifications";
+import { v4 as uuidv4 } from "uuid";
 
 type CustomersContextData = {
   isLoading: boolean;
@@ -80,6 +82,7 @@ type CustomerFormData = z.infer<typeof formSchema>;
 export const CustomersContext = createContext({} as CustomersContextData);
 
 export function CustomersProvider({ children }: { children: ReactNode }) {
+  const { addNotification } = useNotifications();
   const [isLoading, setIsLoading] = useState(false);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [page, setPage] = useState(0);
@@ -132,6 +135,17 @@ export function CustomersProvider({ children }: { children: ReactNode }) {
       const { tipoPessoa, ...dataToSend } = data;
 
       await api.post("/clientes", dataToSend);
+      
+      const createdAt = new Date();
+      addNotification({
+        id: uuidv4(),
+        type: "Clientes",
+        action: "Criado",
+        message: `Cliente ${dataToSend.nome}, criado com sucesso!`,
+        createdAt: createdAt.toISOString(),
+        isRead: false,
+      });
+
       toast.success("Cliente cadastrado com sucesso!");
       fetchCustomers();
     } catch (e) {
@@ -150,6 +164,17 @@ export function CustomersProvider({ children }: { children: ReactNode }) {
       setIsLoading(true);
 
       await api.delete(`/clientes/${id}`);
+
+      const createdAt = new Date();
+      addNotification({
+        id: uuidv4(),
+        type: "Clientes",
+        action: "Deletado",
+        message: `Cliente com o id ${id}, deletado com sucesso!`,
+        createdAt: createdAt.toISOString(),
+        isRead: false,
+      });
+
       fetchCustomers();
       toast.success(`Cliente com o id ${id}, deletado com sucesso`);
     } catch (e) {
@@ -168,6 +193,16 @@ export function CustomersProvider({ children }: { children: ReactNode }) {
       setIsLoading(true);
 
       await api.put(`/clientes/${id}`, data);
+
+      const createdAt = new Date();
+      addNotification({
+        id: uuidv4(),
+        type: "Clientes",
+        action: "Atualizado",
+        message: `Cliente ${data.nome}, atualizado com sucesso!`,
+        createdAt: createdAt.toISOString(),
+        isRead: false,
+      });
 
       toast.success("Clientes atualizado com sucesso!");
       fetchCustomers();

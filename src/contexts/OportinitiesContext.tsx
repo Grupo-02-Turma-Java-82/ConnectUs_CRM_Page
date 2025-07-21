@@ -4,6 +4,8 @@ import { api } from "@/services/api";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import z from "zod";
+import { useNotifications } from "@/hooks/useNotifications";
+import { v4 as uuidv4 } from "uuid";
 
 type OportunitiesContextData = {
   isLoading: boolean;
@@ -43,6 +45,7 @@ type OpportunitiesFormData = z.infer<typeof formSchema>;
 export const OportunitiesContext = createContext({} as OportunitiesContextData);
 
 export function OportunitiesProvider({ children }: { children: ReactNode }) {
+  const { addNotification } = useNotifications();
   const [isLoading, setIsLoading] = useState(false);
   const [Oportunities, setOportunities] = useState<Oportunities[]>([]);
 
@@ -72,6 +75,17 @@ export function OportunitiesProvider({ children }: { children: ReactNode }) {
       setIsLoading(true);
 
       await api.post("/oportunidades", data);
+
+      const createdAt = new Date();
+      addNotification({
+        id: uuidv4(),
+        type: "Oportunidades",
+        action: "Criado",
+        message: `Oportunidade ${data.titulo}, criada com sucesso!`,
+        createdAt: createdAt.toISOString(),
+        isRead: false,
+      });
+
       toast.success("Oportunidade cadastrada com sucesso!");
       fetchOportunities();
     } catch (e) {
@@ -91,6 +105,17 @@ export function OportunitiesProvider({ children }: { children: ReactNode }) {
       setIsLoading(true);
 
       await api.delete(`/oportunidades/${id}`);
+
+      const createdAt = new Date();
+      addNotification({
+        id: uuidv4(),
+        type: "Oportunidades",
+        action: "Deletado",
+        message: `Oportunidade com o id ${id}, deletada com sucesso!`,
+        createdAt: createdAt.toISOString(),
+        isRead: false,
+      });
+
       toast.success("Oportunidade deletada com sucesso!");
       fetchOportunities();
     } catch (e) {
@@ -110,6 +135,16 @@ export function OportunitiesProvider({ children }: { children: ReactNode }) {
       setIsLoading(true);
 
       await api.put(`/oportunidades`, data);
+
+      const createdAt = new Date();
+      addNotification({
+        id: uuidv4(),
+        type: "Oportunidades",
+        action: "Atualizado",
+        message: `Oportunidade ${data.titulo}, atualizada com sucesso!`,
+        createdAt: createdAt.toISOString(),
+        isRead: false,
+      });
 
       toast.success("Oportunidade atualizada com sucesso!");
       fetchOportunities();
