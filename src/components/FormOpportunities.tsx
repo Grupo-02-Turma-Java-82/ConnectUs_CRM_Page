@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -20,7 +19,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FormInput } from "./FormInput";
-import type { Oportunities } from "@/models/Oportunities";
 import { useOportunities } from "@/hooks/useOportunities";
 import { formSchema, opportunityStatus } from "@/contexts/OportinitiesContext";
 import { useUsers } from "@/hooks/userUsers";
@@ -28,17 +26,11 @@ import { useCustomers } from "@/hooks/useCustomers";
 import { TextareaInput } from "./TextareaInput";
 
 type FormOpportunitiesProps = {
-  isEditMode: boolean;
-  initialData?: Oportunities | null;
   onClose?: () => void;
 };
 
-export function FormOpportunities({
-  onClose,
-  isEditMode,
-  initialData,
-}: FormOpportunitiesProps) {
-  const { addOpportunities, updateOpportunities } = useOportunities();
+export function FormOpportunities({ onClose }: FormOpportunitiesProps) {
+  const { addOpportunities } = useOportunities();
   const { users } = useUsers();
   const { customers } = useCustomers();
 
@@ -54,25 +46,8 @@ export function FormOpportunities({
     },
   });
 
-  useEffect(() => {
-    if (isEditMode && initialData) {
-      form.reset({
-        titulo: initialData.titulo,
-        descricao: initialData.descricao,
-        valorEstimado: initialData.valorEstimado,
-        status: initialData.status,
-        usuario: { id: initialData.usuario?.id },
-        cliente: { id: initialData.cliente?.id },
-      });
-    }
-  }, [isEditMode, initialData, form]);
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    if (isEditMode && initialData) {
-      await updateOpportunities(initialData.id, values);
-    } else {
-      await addOpportunities(values);
-    }
+    await addOpportunities(values);
 
     if (onClose) onClose();
     form.reset();
@@ -190,7 +165,7 @@ export function FormOpportunities({
 
         <div className="flex justify-end pt-4">
           <Button type="submit" className="cursor-pointer">
-            {isEditMode ? "Atualizar" : "Cadastrar"}
+            Cadastrar
           </Button>
         </div>
       </form>

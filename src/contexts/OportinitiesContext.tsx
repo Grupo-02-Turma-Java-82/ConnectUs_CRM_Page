@@ -12,7 +12,7 @@ type OportunitiesContextData = {
   Oportunities: Oportunities[];
   deleteOportunities: (id: number) => Promise<void>;
   addOpportunities: (data: OpportunitiesFormData) => Promise<void>;
-  updateOpportunities: (data: OpportunitiesFormData) => Promise<void>;
+  // updateOpportunities: (data: OpportunitiesFormData) => Promise<void>;
 };
 
 export const opportunityStatus = [
@@ -130,35 +130,35 @@ export function OportunitiesProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  async function updateOpportunities(data: OpportunitiesFormData) {
-    try {
-      setIsLoading(true);
+  // async function updateOpportunities(data: OpportunitiesFormData) {
+  //   try {
+  //     setIsLoading(true);
 
-      await api.put(`/oportunidades`, data);
+  //     await api.put(`/oportunidades`, data);
 
-      const createdAt = new Date();
-      addNotification({
-        id: uuidv4(),
-        type: "Oportunidades",
-        action: "Atualizado",
-        message: `Oportunidade ${data.titulo}, atualizada com sucesso!`,
-        createdAt: createdAt.toISOString(),
-        isRead: false,
-      });
+  //     const createdAt = new Date();
+  //     addNotification({
+  //       id: uuidv4(),
+  //       type: "Oportunidades",
+  //       action: "Atualizado",
+  //       message: `Oportunidade ${data.titulo}, atualizada com sucesso!`,
+  //       createdAt: createdAt.toISOString(),
+  //       isRead: false,
+  //     });
 
-      toast.success("Oportunidade atualizada com sucesso!");
-      fetchOportunities();
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        toast.error(
-          e.response?.data?.message ||
-            "Não foi possível atualizar a oportunidade."
-        );
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  }
+  //     toast.success("Oportunidade atualizada com sucesso!");
+  //     fetchOportunities();
+  //   } catch (e) {
+  //     if (e instanceof AxiosError) {
+  //       toast.error(
+  //         e.response?.data?.message ||
+  //           "Não foi possível atualizar a oportunidade."
+  //       );
+  //     }
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }
 
   useEffect(() => {
     fetchOportunities();
@@ -171,7 +171,7 @@ export function OportunitiesProvider({ children }: { children: ReactNode }) {
         Oportunities,
         deleteOportunities,
         addOpportunities,
-        updateOpportunities,
+        // updateOpportunities,
       }}
     >
       {children}

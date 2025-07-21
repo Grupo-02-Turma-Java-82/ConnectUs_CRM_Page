@@ -19,7 +19,18 @@ export function AppRoutes() {
       </Route>
 
       <Route path="/dashboard" element={<DashboardLayout />}>
-        <Route index element={<Dashboard />} />
+        <Route
+          index
+          element={
+            <OportunitiesProvider>
+              <UsersProvider>
+                <CustomersProvider>
+                  <Dashboard />
+                </CustomersProvider>
+              </UsersProvider>
+            </OportunitiesProvider>
+          }
+        />
       </Route>
 
       <Route path="/customers" element={<DashboardLayout />}>

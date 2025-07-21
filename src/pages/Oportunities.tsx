@@ -11,7 +11,7 @@ export function Oportunities() {
 
   return (
     <div className="p-5">
-      <div className="flex flex-col sm: justify-between">
+      <div className="flex flex-col sm:flex-row justify-between">
         <h1 className="text-3xl font-bold text-foreground mb-4 sm:mb-0">
           Oportunidades
         </h1>
@@ -30,7 +30,7 @@ export function Oportunities() {
       ) : (
         <>
           {isForm ? (
-            <FormOpportunities isEditMode={false} />
+            <FormOpportunities />
           ) : (
             <OportunitiesDataTable
               oportunities={Oportunities}

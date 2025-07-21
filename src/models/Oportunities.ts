@@ -8,6 +8,7 @@ export type Oportunities = {
   valorEstimado: number;
   status: "NOVA" | "EM_NEGOCIACAO" | "GANHA" | "PERDIDA" | "ARQUIVADA";
   dataCricao: Date;
-  usuario: Users[];
-  cliente: Customer[];
+  usuario: Users;
+  cliente: Customer;
+  dataCriacao: Date;
 };
