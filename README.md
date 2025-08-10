@@ -42,6 +42,14 @@ O sistema permite cadastrar e visualizar clientes (CPF e CNPJ), acompanhar oport
 
 ---
 
+## ⚙️ Arquitetura e API
+
+A aplicação front-end consome uma API RESTful desenvolvida em Java com Spring Boot, responsável por toda a lógica de negócio e persistência dos dados. A comunicação é feita através de requisições HTTP, seguindo os padrões de mercado.
+
+Para mais detalhes sobre a API, acesse o repositório:
+[Repositório da API ConnectUs](https://github.com/Grupo-02-Turma-Java-82/Connectus_CRM)
+
+
 ## 🛠️ Começando
 
 ### Pré-requisitos
@@ -53,12 +61,12 @@ O sistema permite cadastrar e visualizar clientes (CPF e CNPJ), acompanhar oport
 
 1. **Clone o repositório:**
     ```sh
-    git clone https://github.com/seu-usuario/connectus-crm-page.git
+    git clone https://github.com/Grupo-02-Turma-Java-82/ConnectUs_CRM_Page.git
     ```
 
 2. **Acesse o diretório do projeto:**
     ```sh
-    cd connectus-crm-page
+    cd ConnectUs_CRM_Page
     ```
 
 3. **Instale as dependências:**
