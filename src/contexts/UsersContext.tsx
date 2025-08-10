@@ -40,7 +40,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
       setIsLoading(true);
       const response = await api.get("/usuarios/all");
 
-      setUsers(response.data ?? []);
+      setUsers(Array.isArray(response.data) ? response.data : []);
     } catch (e) {
       console.error(e);
       if (e instanceof AxiosError) {
